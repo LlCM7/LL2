@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>寻宝之旅动画版</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
+
+  .stage {
+    margin: 20px auto;
+    width: 300px;
+    height: 300px;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid #333;
+  }
+
+  .treasure-hunt {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
+
+  .clue, .temple, .guard, .trap, .chest {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1s;
+  }
+
+  .clue {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><rect width="100%" height="100%" fill="gold"/></svg>');
+  }
+
+  .temple {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><polygon points="150,50 50,200 250,200" fill="saddlebrown"/></svg>');
+  }
+
+  .guard {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><circle cx="150" cy="150" r="50" fill="blue"/></svg>');
+  }
+
+  .trap {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><circle cx="150" cy="150" r="100" fill="red"/></svg>');
+  }
+
+  .chest {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><rect width="100%" height="100%" fill="green"/></svg>');
+  }
+
+  .message {
+    margin-top: 20px;
+    transition: opacity 0.5s;
+  }
+
+  .hidden {
+    opacity: 0;
+  }
+
+  .visible {
+    opacity: 1;
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="treasure-hunt">
+    <div class="clue" id="clue"></div>
+    <div class="temple" id="temple"></div>
+    <div class="guard" id="guard"></div>
+    <div class="trap" id="trap"></div>
+    <div class="chest" id="chest"></div>
+  </div>
+</div>
+
+<p class="message hidden" id="message">点击开始寻宝之旅！</p>
+
+<button onclick="startAdventure()">开始冒险</button>
+
+<script>
+  function displayMessage(msg) {
+    const messageElement = document.getElementById('message');
+    messageElement.textContent = msg;
+    messageElement.classList.remove('hidden');
+    messageElement.classList.add('visible');
+  }
+
+  function showStage(stageId) {
+    const stageElement = document.getElementById(stageId);
+    stageElement.style.opacity = 1;
+    setTimeout(() => {
+      stageElement.style.opacity = 0;
+    }, 1000);
+  }
+
+  function startAdventure() {
+    displayMessage("古老的图书馆里，你发现了一张神秘的地图...");
+    showStage('clue');
+
+    setTimeout(() => {
+      displayMessage("跟随地图的指引，你来到了一座神秘的神庙...");
+      showStage('temple');
+    }, 2000);
+
+    setTimeout(() => {
+      displayMessage("糟糕！神庙的守卫发现了你...");
+      showStage('guard');
+    }, 4000);
+
+    setTimeout(() => {
+      displayMessage("你机智地避开了守卫，但神庙内布满了陷阱...");
+      showStage('trap');
+    }, 6000);
+
+    setTimeout(() => {
+      displayMessage("你巧妙地避开了所有陷阱，发现了一个金光闪闪的宝箱！");
+      showStage('chest');
+    }, 8000);
+  }
+</script>
+
+</body>
+</html>
